@@ -9,8 +9,14 @@
  * @throws {Error} Si n es negativo
  */
 function factorial(n) {
-    // ERROR INTENCIONAL: retornamos n en lugar del factorial correcto
-    return n;  // ❌ Esto está mal - debería calcular el factorial
+    // Corregido: ahora calcula el factorial correctamente
+    if (n < 0) {
+        throw new Error('No se puede calcular factorial de números negativos');
+    }
+    if (n === 0 || n === 1) {
+        return 1;
+    }
+    return n * factorial(n - 1);
 }
 
 /**
