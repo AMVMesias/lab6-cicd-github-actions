@@ -1,0 +1,42 @@
+
+name: CI Pipeline
+
+# Triggers - cuándo se ejecuta
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+# Jobs - trabajos a ejecutar
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Paso 1: Checkout del código
+      - name: Checkout código
+        uses: actions/checkout@v4
+
+      # Paso 2: Configurar Node.js
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      # Paso 3: Instalar dependencias
+      - name: Instalar dependencias
+        run: npm ci
+
+      # Paso 4: Ejecutar linting
+      - name: Ejecutar ESLint
+        run: npm run lint
+
+      # Paso 5: Ejecutar pruebas
+      - name: Ejecutar pruebas Jest
+        run: npm test
+
+      # Paso 6: Simular deploy (mensaje informativo)
+      - name: Simular Deploy
+        run: echo " Build exitoso! Listo para desplegar."
